@@ -2,7 +2,7 @@
 
 This is my personal website, built with [Astro](https://astro.build/), [Solid](https://www.solidjs.com/) and [UnoCSS](https://github.com/antfu/unocss).
 
-Anyway, just have fun: [zxh.me](https://zxh.me)
+Anyway, just have fun: [keparal](https://www.keparal.cn/)
 
 &nbsp;
 
