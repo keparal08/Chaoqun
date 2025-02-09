@@ -39,7 +39,7 @@ projects:
         - i-logos:solidjs-icon
         - i-logos:typescript-icon
         - i-logos:unocss
-      repo: Renovamen/renovamen.github.io
+      repo: keparal08/Chaoqun
     - name: Midgard
       link: https://resume.zxh.io
       desc: An interactive resume
