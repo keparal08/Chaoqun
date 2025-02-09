@@ -14,8 +14,8 @@ import {
 const lang = "zh";
 
 const title = "胡思乱想";
-const allURL = `/posts/`;
-const tagURL = `${allURL}tags/`;
+const allURL = `/recent/`;
+const tagURL = `recent/tags/`;
 
 const posts = await getPosts(lang);
 const { tags, numPostsPerTag } = getTags(posts);
@@ -54,7 +54,7 @@ const sortedPostsByYear = getSortedPostsByYear(posts); // 直接使用 posts，�
               </div>
               <a
                 class="flex-1 !text-fg underline-offset-4"
-                href={`/posts/${item.id}`}
+                href={`/recent/${item.id.replace(/^zh\//, "")}`} // 移除语言前缀
                 transition:name={item.id}
               >
                 {item.data.title}

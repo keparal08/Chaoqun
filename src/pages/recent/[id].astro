@@ -9,7 +9,7 @@ export interface Props {
 
 export const getStaticPaths = async () =>
   (await getPosts("zh")).map((post) => ({
-    params: { id: post.id.split("/")[1] },
+    params: { id: post.id.replace(/^zh\//, "") }, // 移除语言前缀
     props: { post }
   }));
 

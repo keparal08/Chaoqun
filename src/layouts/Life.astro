@@ -104,22 +104,23 @@ const lastUpdatedText = THEME.lastUpdatedText;
 
   {
     (prevPost || nextPost) && (
-      <div class="flex justify-between mt-3 pt-3 text-[0.95em] border-t">
-        <span>
-          {prevPost && (
-            <a href={`/posts/${prevPost.path}`} class="!text-fg before:content-['←']">
-              {prevPost.title}
-            </a>
-          )}
-        </span>
-        <span text-right>
-          {nextPost && (
-            <a href={`/posts/${nextPost.path}`} class="!text-fg after:content-['→']">
-              {nextPost.title}
-            </a>
-          )}
-        </span>
-      </div>
+<div class="flex justify-between mt-3 pt-3 text-[0.95em] border-t">
+  <span>
+    {prevPost && prevPost.path && (
+      <a href={`/recent/${prevPost.path.replace(/^zh\//, "")}`} class="!text-fg before:content-['←']">
+        {prevPost.title}
+      </a>
+    )}
+  </span>
+  <span text-right>
+    {nextPost && nextPost.path && (
+      <a href={`/recent/${nextPost.path.replace(/^zh\//, "")}`} class="!text-fg after:content-['→']">
+        {nextPost.title}
+      </a>
+    )}
+  </span>
+</div>
+
     )
   }
 
