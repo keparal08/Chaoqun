@@ -1,0 +1,129 @@
+--- 
+import { slugify } from "@renovamen/utils";
+import { render, type CollectionEntry } from "astro:content";
+import { SITE, THEME } from "@config";
+import Layout from "@layouts/Layout.astro";
+import TocButtons from "@components/TocButtons";
+import Giscus from "@components/Giscus";
+import { getPostDate, getPosts, getSortedPosts, formatDate, readingTime, lastUpdated } from "@utils";
+
+export interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { title, author, tags } = post.data;
+
+const { Content } = await render(post);
+const tagURL = `/posts/tags/`;
+
+
+
+
+
+
+
+
+// 判断是否存在目录的正则表达式修改，防止空数据问题
+const hasToc = post.body && /## toc\n/.test(post.body);
+
+// 确保 `prevPost` 和 `nextPost` 数据获取正确
+const posts = getSortedPosts(await getPosts());
+const postIndex = posts.findIndex((p) => p.id === post.id);
+
+const nextPost = postIndex > 0 ? posts[postIndex - 1] : null;
+const prevPost = postIndex < posts.length - 1 ? posts[postIndex + 1] : null;
+
+// 如果 `prevPost` 和 `nextPost` 的路径不存在，需提供默认值
+const prevPostData = prevPost
+  ? { title: prevPost.data.title, path: prevPost.id }
+  : null;
+const nextPostData = nextPost
+  ? { title: nextPost.data.title, path: nextPost.id }
+  : null;
+  
+// 编辑链接
+const editURL = THEME.editLink.pattern.replace(/:path/g, `/${post.id}`);
+const editText = THEME.editLink.text;
+
+// 最后更新时间
+const lastUpdatedTime = lastUpdated(post.id);
+const lastUpdatedText = THEME.lastUpdatedText;
+---
+<Layout
+  class="recent"
+  title={`${title} - ${SITE.title}`}
+  author={author}
+  hasToc={hasToc}
+  activePage="recent"
+>
+  <div mt-6 mb-8>
+    <h1 class="text-4xl font-bold leading-12 my-0" transition:name={post.id}>
+      {title}
+    </h1>
+
+    <p text-fg-light mt-2>
+      {formatDate(getPostDate(post.id))} · {readingTime(post.body ?? "").minutes} min
+      {
+        tags?.length && (
+          <span>
+            ·
+            <span i-uil:tag-alt text-sm />
+            {tags.map((tag, i) => (
+              <span>
+                <a href={tagURL + slugify(tag)} class="!nav-item">{tag}</a>
+                {i !== tags.length - 1 && <span class="-ml-1.5">, </span>}
+              </span>
+            ))}
+          </span>
+        )
+      }
+    </p>
+  </div>
+
+  <div class="content mb-16">
+    {hasToc && <TocButtons client:load prev={prevPost?.path} next={nextPost?.path} />}
+    <Content />
+  </div>
+
+  <div class="grid md:grid-cols-2 text-[0.95em]">
+    <a href={editURL} target="_blank" rel="noopener noreferrer" class="hover:underline">
+      <span class="i-tabler:edit size-4.5 align-text-top mr-1"></span>
+      {editText}
+    </a>
+    {
+      lastUpdatedTime !== "Invalid Date" && (
+        <span md:text-right text-fg-light>
+          <span class="i-ic:round-update size-4.5 mr-1" />
+          {lastUpdatedText}
+          {lastUpdatedTime}
+        </span>
+      )
+    }
+  </div>
+
+  {
+    (prevPost || nextPost) && (
+      <div class="flex justify-between mt-3 pt-3 text-[0.95em] border-t">
+        <span>
+          {prevPost && (
+            <a href={`/posts/${prevPost.path}`} class="!text-fg before:content-['←']">
+              {prevPost.title}
+            </a>
+          )}
+        </span>
+        <span text-right>
+          {nextPost && (
+            <a href={`/posts/${nextPost.path}`} class="!text-fg after:content-['→']">
+              {nextPost.title}
+            </a>
+          )}
+        </span>
+      </div>
+    )
+  }
+
+  <div mt-20>
+    <Giscus client:visible />
+  </div>
+</Layout>

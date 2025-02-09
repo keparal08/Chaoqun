@@ -1,0 +1,13 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Giscus from "@components/Giscus";
+---
+
+<Layout class="comments" title="comments" activePage="comments">
+
+  <h1>Leave a message to Chaoqun Li</h1>
+
+  <div mt-20>
+  <Giscus client:visible />
+  </div>
+</Layout>

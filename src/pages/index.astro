@@ -1,0 +1,52 @@
+---
+import { frontmatter, Content } from "@content/about/index.md";
+import { SITE } from "@config";
+import type { SocialItem } from "@types";
+import Links from "@components/Links.astro";
+import FlipImage from "@components/FlipImage.astro";
+import Layout from "@layouts/Layout.astro";
+
+interface Frontmatter {
+  name: string;
+  subname?: string;
+  avatarFront?: string;
+  avatarBack?: string;
+  tltr?: string;
+  socials: SocialItem[];
+}
+
+const { name, subname, avatarFront, avatarBack, tltr, socials } =
+  frontmatter as Frontmatter;
+---
+
+<Layout class="about" title={`about - ${SITE.title}`} activePage="about">
+  <div class="flex items-start">
+    <div class="flex-grow">
+      <h3 my-0 text-fg-light>Hello, this is</h3>
+
+      <h1 my-1.5>
+        {name}
+        {subname && <font text="base fg-light"> ({subname})</font>}.
+      </h1>
+
+      {
+        tltr && (
+          <h5 mb-4 text-fg-light>
+            {tltr}
+          </h5>
+        )
+      }
+
+      <Links socials={socials} />
+
+      <Content />
+    </div>
+    <div class="size-64 mb-4 ml-4" sm="size-80 md:size-96 lg:size-104 xl:size-128"> {/* Adjust sizes as needed */}
+      {
+        avatarFront && (
+          <FlipImage front={avatarFront} back={avatarBack} alt="avatar" />
+        )
+      }
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Post from "@layouts/Life.astro";
+import { getPosts } from "@utils";
+
+export interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+export const getStaticPaths = async () =>
+  (await getPosts("zh")).map((post) => ({
+    params: { id: post.id.split("/")[1] },
+    props: { post }
+  }));
+
+const { post } = Astro.props;
+---
+
+<Post post={post} lang="zh" />
