@@ -27,7 +27,7 @@ let filteredPosts = allPosts;
 
 if (currentTag) {
   filteredPosts = getPostsByTag(allPosts, currentTag);
-  title = `标签: ${currentTag} - ${SITE.title}`; // Now this reassignment is valid
+  //title = `标签: ${currentTag} - ${SITE.title}`; // Now this reassignment is valid
 }
 
 const sortedPostsByYear = getSortedPostsByYear(filteredPosts);

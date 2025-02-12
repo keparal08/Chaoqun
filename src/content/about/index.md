@@ -2,7 +2,7 @@
 name: Chaoqun Li
 subname: 李超群
 avatarFront: /img/chaoqun.jpg
-avatarBack: /img/chaoqun2.jpg
+avatarBack: /img/what.jpg
 tltr: Tomorrow is a boy who needs to run.
 socials:
   - icon: i-academicons:cv
