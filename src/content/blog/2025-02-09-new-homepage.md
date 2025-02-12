@@ -1,5 +1,9 @@
 ---
 title: New homepage
+
+tags:
+  - Web
+
 ---
 
 It seems that I always spend a lot of time on building my homepage.

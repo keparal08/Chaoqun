@@ -7,8 +7,6 @@ export interface Props {
   tag: string;
 }
 
-const { tag } = Astro.props;
-
 export const getStaticPaths = async () => {
   const posts = await getPosts("zh");
   const { tags } = getTags(posts);
@@ -18,6 +16,8 @@ export const getStaticPaths = async () => {
     props: { tag }
   }));
 };
+
+const { tag } = Astro.props;
 ---
 
-<RecentList lang="zh" tag={tag} />
+<RecentList tag={tag} /> {/* Pass the tag as a prop */}

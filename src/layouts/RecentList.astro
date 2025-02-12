@@ -3,43 +3,55 @@ import { slugify } from "@renovamen/utils";
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import {
-  getPostDate,
-  getPosts,
-  getPostsByTag,
-  getSortedPostsByYear,
-  getTags,
-  formatDate
+  getPostDate,
+  getPosts,
+  getSortedPostsByYear,
+  getTags,
+  formatDate,
+  getPostsByTag
 } from "@utils";
 
 const lang = "zh";
 
-const title = "胡思乱想";
-const allURL = `/recent/`;
-const tagURL = `recent/tags/`;
+let title = "胡思乱想"; // Declare title with let!
 
-const posts = await getPosts(lang);
-const { tags, numPostsPerTag } = getTags(posts);
-const sortedPostsByYear = getSortedPostsByYear(posts); // 直接使用 posts，不再根据 tag 过滤
+const allURL = `/recent/`;
+const tagURL = `/recent/tags/`;
+
+const allPosts = await getPosts(lang);
+const { tags, numPostsPerTag } = getTags(allPosts);
+
+const currentTag = Astro.props.tag;
+
+let filteredPosts = allPosts;
+
+if (currentTag) {
+  filteredPosts = getPostsByTag(allPosts, currentTag);
+  title = `标签: ${currentTag} - ${SITE.title}`; // Now this reassignment is valid
+}
+
+const sortedPostsByYear = getSortedPostsByYear(filteredPosts);
+
 ---
 
-<Layout title={`${title} - ${SITE.title}`} activePage={"recent"}>
-  <h1>{title}</h1>
+<Layout title={title} activePage={"recent"}>
+  <h1>{title}</h1>
 
-  <span class="mr-1.5 -space-x-0.5 text-fg-light">
-    <span class="i-uil:tag-alt size-4"></span>
-    <a href={allURL} class={`!nav-item !nav-active`}>全部</a> {/* 默认选中“全部” */}
-    <sup>{numPostsPerTag["all"]}</sup>
-  </span>
+  <span class="mr-1.5 -space-x-0.5 text-fg-light">
+    <span class="i-uil:tag-alt size-4"></span>
+    <a href={allURL} class={`!nav-item ${currentTag ? '' : '!nav-active'}`}>全部</a>
+    <sup>{numPostsPerTag["all"]}</sup>
+  </span>
 
-  {
-    tags.map((t) => (
-      <span class="mr-1.5 -space-x-0.5 text-fg-light">
-        <span class="i-uil:tag-alt size-4" />
-        <a href={tagURL + slugify(t)} class={`!nav-item`}>{t}</a> {/* 移除 tag 的 active class 判断 */}
-        <sup>{numPostsPerTag[t]}</sup>
-      </span>
-    ))
-  }
+  {
+    tags.map((t) => (
+      <span class="mr-1.5 -space-x-0.5 text-fg-light">
+        <span class="i-uil:tag-alt size-4" />
+        <a href={tagURL + slugify(t)} class={`!nav-item ${t === currentTag ? '!nav-active' : ''}`}>{t}</a>
+        <sup>{numPostsPerTag[t]}</sup>
+      </span>
+    ))
+  }
 
   {
     Object.keys(sortedPostsByYear)
