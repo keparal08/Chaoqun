@@ -1,39 +1,45 @@
-import { onMount, createEffect, type Component } from "solid-js";
+import { onMount, createEffect, type Component, createSignal } from "solid-js";
 import { useDark } from "solidjs-use";
 import { GISCUS } from "@config";
 
 export const Giscus: Component = () => {
   const [isDark] = useDark();
+  const [loaded, setLoaded] = createSignal(false); // Add a loaded signal
   const getTheme = () => (isDark() ? GISCUS.dark : GISCUS.light);
 
   const getScriptElement = (theme: string) => {
     const element = document.createElement("script");
 
-    element.setAttribute("src", "https://giscus.app/client.js");
-    element.setAttribute("data-repo", GISCUS.repo);
-    element.setAttribute("data-repo-id", GISCUS.repoId);
-    element.setAttribute("data-category", GISCUS.category);
-    element.setAttribute("data-category-id", GISCUS.categoryId);
-    element.setAttribute("data-theme", theme);
-    element.setAttribute("data-lang", "en");
-    element.setAttribute("data-mapping", "pathname");
-    element.setAttribute("data-reactions-enabled", "1");
-    element.setAttribute("data-emit-metadata", "0");
-    element.setAttribute("crossorigin", "anonymous");
-    element.setAttribute("async", "true");
+    element.src = "https://giscus.app/client.js"; // Simplified attribute setting
+    element.dataset.repo = GISCUS.repo;
+    element.dataset.repoId = GISCUS.repoId;
+    element.dataset.category = GISCUS.category;
+    element.dataset.categoryId = GISCUS.categoryId;
+    element.dataset.theme = theme;
+    element.dataset.lang = "en";
+    element.dataset.mapping = "pathname";
+    element.dataset.reactionsEnabled = "1";
+    element.dataset.emitMetadata = "0";
+    element.crossOrigin = "anonymous";
+    element.async = true;
+
+    element.onload = () => setLoaded(true); // Set loaded to true when script loads
+    element.onerror = () => console.error("Giscus failed to load"); // Handle errors
 
     return element;
   };
 
   const updateGiscus = (theme: string) => {
+    if (!loaded()) return; // Only update if Giscus is loaded
+
     const iframe = document.querySelector<HTMLIFrameElement>("iframe.giscus-frame");
     iframe?.contentWindow?.postMessage(
       {
         giscus: {
           setConfig: {
-            theme
-          }
-        }
+            theme,
+          },
+        },
       },
       "https://giscus.app"
     );
