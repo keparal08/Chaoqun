@@ -1,6 +1,10 @@
 ---
 projects:
   Websites / Online Tools:
+    - name: Optimized Parallel Breadth-First Search with Adaptive Strategies
+      link:
+      desc:
+      icon:
     - name: Portfolio
       link: https://portfolio.zxh.me
       desc: A portfolio website simulating macOS's GUI
@@ -148,3 +152,12 @@ projects:
 ---
 
 At the moment, I don't have any notable projects to share, but I'm working on becoming more motivated.
+
+:::paper[/img/about/bfs.png]
+**Optimized Parallel Breadth-First Search with Adaptive Strategies**
+
+<u>Chaoqun Li</u>, Runbang Hu, XiaoJiang Du, Yuede Ji
+
+Use hybrid BFS, graph preprocessing, classification, and dynamic switching to improve the efficiency of node and edge traversal.
+
+:::

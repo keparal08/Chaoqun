@@ -38,6 +38,15 @@ Feel free to reach out if you’re interested in research discussions or just wa
 
 ## Publications 
 
+:::paper[/img/about/bfs.png]
+**Optimized Parallel Breadth-First Search with Adaptive Strategies**
+
+<u>Chaoqun Li</u>, Runbang Hu, XiaoJiang Du, Yuede Ji
+
+*Preprint*
+:::
+
+
 <!-- :::paper[/img/about/rebq.png]
 **Reconstruct before Query: Continual Missing Modality Learning with Decomposed Prompt Collaboration**
 
@@ -93,11 +102,12 @@ International Conference on Control Engineering and Artificial Intelligence (CCE
 ::: -->
 
 
+
+
+
 ## Talks
 
-<!-- - [Meta / Few-shot Learning](/files/talks/2021-08-meta-learning.pdf), Kuaishou, 08/2021
-- [Continual Learning: Meta Continual Learning & Task Free Settings](/files/talks/2020-08-continual-learning.pdf), Peking University, 08/2020
- -->
+- [PPoPP-FCPC Workshop](/files/talks/optimized_parallel_breadth_first_search_with_adaptive_strategies.pdf), Las Vagas, 03/2025
 
 ## Miscellaneous
 
