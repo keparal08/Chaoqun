@@ -43,7 +43,9 @@ Feel free to reach out if you’re interested in research discussions or just wa
 
 <u>Chaoqun Li</u>, Runbang Hu, XiaoJiang Du, Yuede Ji
 
-*Preprint*
+
+[paper](https://dl.acm.org/doi/abs/10.1145/3711708.3723449)
+[preprint](files/papers/ppopp-fcpc2025/paper_10.pdf)
 :::
 
 
@@ -107,7 +109,8 @@ International Conference on Control Engineering and Artificial Intelligence (CCE
 
 ## Talks
 
-- [PPoPP-FCPC Workshop](/files/talks/optimized_parallel_breadth_first_search_with_adaptive_strategies.pdf), Las Vagas, 03/2025
+- [PPoPP-FCPC Workshop](https://fastcode.org/events/fastcode-challenge/workshop-program/), Las Vagas, 03/2025 [Slides](/files/talks/optimized_parallel_breadth_first_search_with_adaptive_strategies.pdf)
+  
 
 ## Miscellaneous
 
