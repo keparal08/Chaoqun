@@ -154,7 +154,7 @@ projects:
 At the moment, I don't have any notable projects to share, but I'm working on becoming more motivated.
 
 :::paper[/img/about/bfs.png]
-**Optimized Parallel Breadth-First Search with Adaptive Strategies**
+**[Optimized Parallel Breadth-First Search with Adaptive Strategies](https://dl.acm.org/doi/abs/10.1145/3711708.3723449)**
 
 <u>Chaoqun Li</u>, Runbang Hu, XiaoJiang Du, Yuede Ji
 
